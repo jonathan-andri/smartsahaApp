@@ -19,15 +19,36 @@ export default function TabLayout() {
       <Tabs.Screen
         name="index"
         options={{
-          title: 'Home',
+          title: 'Analytiques',
           tabBarIcon: ({ color }) => <IconSymbol size={28} name="house.fill" color={color} />,
         }}
       />
       <Tabs.Screen
-        name="explore"
+        name="dashboard"
         options={{
-          title: 'Explore',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="paperplane.fill" color={color} />,
+          title: 'Tableau de bord',
+          tabBarIcon: ({ color }) => <IconSymbol size={28} name="square.grid.2x2.fill" color={color} />,
+        }}
+      />
+       <Tabs.Screen
+        name="parcel"
+        options={{
+          title: 'Parcelles',
+          tabBarIcon: ({ color }) => <IconSymbol size={28} name="map.fill" color={color} />,
+        }}
+      />
+       <Tabs.Screen
+        name="Task"
+        options={{
+          title: 'Tâches',
+          tabBarIcon: ({ color }) => <IconSymbol size={28} name="checklist" color={color} />,
+        }}
+      />
+      <Tabs.Screen
+        name="Yield"
+        options={{
+          title: 'Rendement',
+          tabBarIcon: ({ color }) => <IconSymbol size={28} name="scalemass.fill" color={color} />,
         }}
       />
     </Tabs>

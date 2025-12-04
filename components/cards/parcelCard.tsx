@@ -1,8 +1,8 @@
 // components/cards/ParcelCard.tsx
+import { FontAwesome, Ionicons, MaterialIcons } from '@expo/vector-icons';
+import { Clock, Droplets, MapPin } from 'lucide-react-native';
 import React from 'react';
-import { View, Text, TouchableOpacity, Image } from 'react-native';
-import { Ionicons, MaterialIcons, FontAwesome } from '@expo/vector-icons';
-import { MapPin, Calendar, Clock, Droplets } from 'lucide-react-native';
+import { Image, Text, TouchableOpacity, View } from 'react-native';
 
 export type ParcelCardProps = {
   // Informations principales
@@ -47,7 +47,7 @@ export const ParcelCard = ({
   irrigationStatus = 'good',
   lastIrrigation,
   nextTask,
-  taskDue = 'Hjery',
+  taskDue = 'Voir',
   imageUrl,
   cropIcon,
   onPress,
@@ -106,6 +106,7 @@ export const ParcelCard = ({
         ${variant === 'detailed' ? 'rounded-2xl shadow-md' : 'border shadow-sm'}
         ${isActive ? '' : 'opacity-70'}
         ${variant !== 'compact' ? 'mb-3' : ''}
+        my-1.5
       `}
     >
       {/* En-tête avec nom et coordonnées */}

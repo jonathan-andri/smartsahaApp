@@ -1,6 +1,6 @@
 // components/cards/StatsCard.tsx
 import React from 'react';
-import { View, Text, TouchableOpacity, Image } from 'react-native';
+import { Image, Text, TouchableOpacity, View } from 'react-native';
 
 export type StatsCardProps = {
   title: string;
@@ -63,6 +63,7 @@ export const StatsCard = ({
         ${textColor}
         flex-row items-center justify-between
         ${variant === 'filled' ? 'shadow-sm' : ''}
+        my-1.5
       `}
     >
       {/* Côté gauche : Avatar/Icon + Texte */}

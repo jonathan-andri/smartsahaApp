@@ -1,10 +1,10 @@
 // app/(tabs)/parcel.tsx
-import React from 'react';
-import { ScrollView, View, Text, FlatList } from 'react-native';
-import { ParcelCard, CompactParcelCard } from '@/components/cards/parcelCard';
-import { ParcelListCard } from '@/components/cards/parcelListCard';
+import { StatsCard } from '@/components/cards/dashCard';
+import { CompactParcelCard } from '@/components/cards/parcelCard';
 import { Ionicons } from '@expo/vector-icons';
-
+import React from 'react';
+import { ScrollView, Text, TouchableOpacity, View } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 export default function ParcelScreen() {
   // Données exemple
   const parcels = [
@@ -16,7 +16,7 @@ export default function ParcelScreen() {
       cropType: 'Riz',
       area: 2.5,
       yield: 3.8,
-      taskDue: 'Hjery',
+      taskDue: 'Dans 1 jour',
       irrigationStatus: 'good' as const,
       lastIrrigation: 'Hier',
       soilType: 'Argileux',
@@ -45,29 +45,39 @@ export default function ParcelScreen() {
   ];
 
   return (
-    <ScrollView className="flex-1 bg-gray-50">
+    <SafeAreaView>
+       <ScrollView className="bg-gray-50">
       <View className="p-4">
         <Text className="text-2xl font-bold mb-6">Vos parcelles</Text>
+        <StatsCard 
+          title="Parcelles surveillées" 
+          value={parcels.length.toString()} 
+          icon={<Ionicons name="leaf" size={24} color="#4CAF50" />} 
+          backgroundColor="bg-green-100" 
+          textColor="text-green-900" 
+        />
+        <StatsCard 
+          title="Rendement Total (kg)" 
+          value={parcels.length.toString()} 
+          icon={<Ionicons name="earth" size={24} color="#46E3FFFF"/>} 
+          backgroundColor="bg-blue-100"
+        />
 
-        {/* Carte détaillée (pour la vue principale) */}
-        <ParcelCard
-          parcelName="Parcelle d'Ambodinonoka"
-          coordinates="-21.2234, 48.0156"
-          farmerName="Mavirika"
-          cropType="Riz"
-          area={2.5}
-          yield={3.8}
-          taskDue="Hjery"
-          irrigationStatus="good"
-          lastIrrigation="Hier"
-          soilType="Argileux"
-          onPress={() => console.log('Parcel pressed')}
-          imageUrl="https://images.unsplash.com/photo-1505253668822-42074d58a7c6"
+        <StatsCard 
+          title="Tâches complétees" 
+          value={23} 
+          icon={<Ionicons name="leaf" size={24} color="#FFB546FF"/>} 
+          backgroundColor="bg-red-100"
         />
 
         {/* Version compacte pour liste */}
         <View className="mt-6">
-          <Text className="text-lg font-semibold mb-4">Toutes les parcelles</Text>
+          <View className='flex flex-row justify-between items-center'>
+            <Text className="text-lg font-semibold mb-4">Toutes les parcelles</Text>
+            <TouchableOpacity className='p-2 bg-green-400 rounded-md'>
+              <Text className= "color-white">+ Ajouter</Text>
+            </TouchableOpacity>
+          </View>
           {parcels.map((parcel) => (
             <CompactParcelCard
               key={parcel.id}
@@ -81,9 +91,15 @@ export default function ParcelScreen() {
             />
           ))}
         </View>
+      </View>
+    </ScrollView>
+    </SafeAreaView>
+   
+  );
+}
 
-        {/* Avec FlatList pour performance */}
-        <View className="mt-8">
+  {/* Avec FlatList pour performance */}
+        {/* <View className="mt-8">
           <Text className="text-lg font-semibold mb-4">Parcelles à irriguer</Text>
           <FlatList
             data={parcels}
@@ -102,10 +118,10 @@ export default function ParcelScreen() {
               />
             )}
           />
-        </View>
+        </View> */}
 
         {/* Grille de parcelles */}
-        <View className="mt-8">
+       {/* <View className="mt-8">
           <Text className="text-lg font-semibold mb-4">Vue grille</Text>
           <View className="flex-row flex-wrap -mx-2">
             {parcels.map((parcel) => (
@@ -128,8 +144,20 @@ export default function ParcelScreen() {
               </View>
             ))}
           </View>
-        </View>
-      </View>
-    </ScrollView>
-  );
-}
+        </View> */}
+
+                {/* Carte détaillée (pour la vue principale) */}
+        {/* <ParcelCard
+          parcelName="Parcelle d'Ambodinonoka"
+          coordinates="-21.2234, 48.0156"
+          farmerName="Mavirika"
+          cropType="Riz"
+          area={2.5}
+          yield={3.8}
+          taskDue="Hjery"
+          irrigationStatus="good"
+          lastIrrigation="Hier"
+          soilType="Argileux"
+          onPress={() => console.log('Parcel pressed')}
+          imageUrl="https://images.unsplash.com/photo-1505253668822-42074d58a7c6"
+        /> */}

@@ -127,7 +127,7 @@ const TaskCard: React.FC<TaskProps> = ({
               {/* Parce crop */}
               <View className="flex-row items-center">
                 <View className={`w-2 h-2 rounded-full ${priorityColors[priority]}`} />
-                <Text className="ml-2 text-sm text-gray-600 dark:text-gray-300">
+                <Text className="mx-2 text-sm text-gray-600 dark:text-gray-300">
                   {parceCrop}
                 </Text>
               </View>

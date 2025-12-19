@@ -90,7 +90,10 @@ export default function Task() {
                 height={30}
           />
         </View>
-        <Button className='mb-3 bg-green-200' >+ Nouvelle Tâche</Button>
+        <Button className='mb-3 bg-green-500 text-green-700' 
+          style={{backgroundColor: '#BBF7D0'}}
+        >+ Nouvelle Tâche</Button>
+
         <ScrollView showsVerticalScrollIndicator={false}>
           {tasks.map((task, index) => (
             <TaskCard

@@ -1,102 +1,150 @@
-import React, { useEffect, useRef, useState } from "react";
-import { Animated, Text, TextInput, TouchableOpacity, View } from "react-native";
+import React, { useEffect, useRef } from "react";
+import { Animated, FlatList, Image, Text, TouchableOpacity, View } from "react-native";
 
 
-export default function RegisterScreen() {
-  const fadeAnim = useRef(new Animated.Value(0)).current;
-  const slideAnim = useRef(new Animated.Value(30)).current;
+/* =====================
+   Reusable Components
+===================== */
 
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+const AnimatedCard = ({ item, index }) => {
+  const scale = useRef(new Animated.Value(0.9)).current;
+  const opacity = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
     Animated.parallel([
-      Animated.timing(fadeAnim, {
+      Animated.timing(scale, {
         toValue: 1,
-        duration: 700,
+        duration: 400,
+        delay: index * 80,
         useNativeDriver: true,
       }),
-      Animated.timing(slideAnim, {
-        toValue: 0,
-        duration: 700,
+      Animated.timing(opacity, {
+        toValue: 1,
+        duration: 400,
+        delay: index * 80,
         useNativeDriver: true,
       }),
     ]).start();
   }, []);
 
   return (
-    <View className="flex-1 bg-light justify-center px-6">
-      <Animated.View
-        style={{ opacity: fadeAnim, transform: [{ translateY: slideAnim }] }}
-        className="gap-5"
-      >
-        {/* Title */}
-        <View className="items-center mb-4">
-          <Text className="text-primary text-3xl font-semibold">Créer un compte</Text>
-          <Text className="text-neutral-900">Rejoignez-nous et découvrez</Text>
-        </View>
+    <Animated.View
+      style={{ transform: [{ scale }], opacity }}
+      className={`flex-1 rounded-3xl p-4 m-2 ${item.bg}`}
+    >
+      <Text className="text-neutral-900 font-semibold text-base">{item.title}</Text>
+      <Text className="text-neutral-500 text-xs mb-2">{item.stock}</Text>
 
-        {/* Name */}
-        <View className="bg-white rounded-2xl px-4 py-3">
-          <TextInput
-            placeholder="Nom complet"
-            placeholderTextColor="#737373"
-            className="text-white text-base"
-            value={name}
-            onChangeText={setName}
-          />
-        </View>
+      <Image source={item.image} className="w-full h-24" resizeMode="contain" />
 
-        {/* Email */}
-        <View className="bg-white rounded-2xl px-4 py-3">
-          <TextInput
-            placeholder="Email"
-            placeholderTextColor="#737373"
-            className="text-white text-base"
-            value={email}
-            onChangeText={setEmail}
-            autoCapitalize="none"
-          />
-        </View>
-
-        {/* Password */}
-        <View className="bg-white rounded-2xl px-4 py-3">
-          <TextInput
-            placeholder="Mot de passe"
-            placeholderTextColor="#737373"
-            className="text-white text-base"
-            value={password}
-            onChangeText={setPassword}
-            secureTextEntry
-          />
-        </View>
-
-        {/* Confirm Password */}
-        <View className="bg-white rounded-2xl px-4 py-3">
-          <TextInput
-            placeholder="Confirmer le mot de passe"
-            placeholderTextColor="#737373"
-            className="text-white text-base"
-            value={confirmPassword}
-            onChangeText={setConfirmPassword}
-            secureTextEntry
-          />
-        </View>
-
-        {/* Register Button */}
-        <TouchableOpacity className="bg-primary rounded-2xl py-4 items-center mt-2">
-          <Text className="text-white font-semibold text-base">Confirmer</Text>
+      <View className="flex-row items-center justify-between mt-3">
+        <Text className="text-sm font-semibold text-neutral-900">{item.price}</Text>
+        <TouchableOpacity className="bg-emerald-500 w-8 h-8 rounded-full items-center justify-center">
+          <Text className="text-white font-bold">+</Text>
         </TouchableOpacity>
+      </View>
+    </Animated.View>
+  );
+};
 
-        {/* Footer */}
-        <View className="items-center mt-4">
-          <Text className="text-neutral-900 text-sm">
-            Avez-vous déja un compte? <Text className="text-primary">Login</Text>
-          </Text>
-        </View>
-      </Animated.View>
+const SectionHeader = () => (
+  <View className="flex-row items-center justify-between mb-4">
+    <View>
+      <Text className="text-emerald-500 font-semibold">Offres</Text>
+      <Text className="text-2xl font-bold">Pour Vous</Text>
+    </View>
+    <TouchableOpacity className="w-10 h-10 bg-white rounded-full items-center justify-center shadow">
+      <Text className="text-lg">←</Text>
+    </TouchableOpacity>
+  </View>
+);
+
+const CartBar = () => (
+  <View className="absolute bottom-6 left-6 right-6 bg-emerald-500 rounded-full px-6 py-4 flex-row items-center justify-between shadow-xl">
+    <View>
+      <Text className="text-white font-semibold">Panier</Text>
+      <Text className="text-white/80 text-xs">3 Offres</Text>
+    </View>
+    <View className="flex-row items-center gap-2">
+      <View className="w-8 h-8 bg-white rounded-full" />
+      <View className="w-8 h-8 bg-white rounded-full" />
+      <View className="w-8 h-8 bg-white rounded-full" />
+    </View>
+  </View>
+);
+
+/* =====================
+   Main Screen
+===================== */
+
+export default function OffersScreen() {
+  const data = [
+    {
+      id: "1",
+      title: "Vanille",
+      stock: "120kg",
+      price: "Ar 45k",
+      bg: "bg-yellow-100",
+      image: require("../../assets/images/vanille.png"),
+    },
+    {
+      id: "2",
+      title: "Maïs",
+      stock: "2 tonnes",
+      price: "Ar 30k",
+      bg: "bg-orange-100",
+      image: require("../../assets/images/mais.png"),
+    },
+    {
+      id: "3",
+      title: "Blé",
+      stock: "1 tonne",
+      price: "Ar 40k",
+      bg: "bg-amber-100",
+      image: require("../../assets/images/ble.png"),
+    },
+    {
+      id: "4",
+      title: "Noix de cacao",
+      stock: "500kg",
+      price: "Ar 35k",
+      bg: "bg-purple-100",
+      image: require("../../assets/images/cacao.png"),
+    },
+    {
+      id: "5",
+      title: "Fraise",
+      stock: "200kg",
+      price: "Ar 50k",
+      bg: "bg-red-100",
+      image: require("../../assets/images/fraise.png"),
+    },
+    {
+      id: "6",
+      title: "Raisin",
+      stock: "300kg",
+      price: "Ar 48k",
+      bg: "bg-indigo-100",
+      image: require("../../assets/images/raisin.png"),
+    },
+  ];
+
+  return (
+    <View className="flex-1 bg-[#F6FBF8] px-4 pt-12">
+      <SectionHeader />
+
+      <FlatList
+        data={data}
+        keyExtractor={(item) => item.id}
+        numColumns={2}
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={{ paddingBottom: 120 }}
+        renderItem={({ item, index }) => (
+          <AnimatedCard item={item} index={index} />
+        )}
+      />
+
+      <CartBar />
     </View>
   );
 }

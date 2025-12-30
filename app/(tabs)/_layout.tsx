@@ -1,9 +1,8 @@
+import { Ionicons, MaterialIcons } from '@expo/vector-icons';
 import { Tabs } from 'expo-router';
 import React from 'react';
-import { Ionicons, MaterialIcons } from '@expo/vector-icons';
 
 import { HapticTab } from '@/components/haptic-tab';
-import { IconSymbol } from '@/components/ui/icon-symbol';
 import { Colors } from '@/constants/theme';
 import { useColorScheme } from '@/hooks/use-color-scheme';
 
@@ -20,15 +19,22 @@ export default function TabLayout() {
       <Tabs.Screen
         name="index"
         options={{
-          title: 'Analytiques',
-          tabBarIcon: ({ color }) => <Ionicons name="home" size={28} color={color} />,
+          title: 'Offres',
+          tabBarIcon: ({ color }) => <Ionicons name="pricetag" size={28} color={color} />,
         }}
       />
       <Tabs.Screen
-        name="dashboard"
+        name="createOffer"
         options={{
-          title: 'Tableau de bord',
-          tabBarIcon: ({ color }) => <MaterialIcons name="dashboard" size={28} color={color} />,
+          title: 'Créer des offres',
+          tabBarIcon: ({ color }) => <MaterialIcons name="more" size={28} color={color} />,
+        }}
+      />
+       <Tabs.Screen
+        name="chat"
+        options={{
+          title: 'Discussion',
+          tabBarIcon: ({ color }) => <MaterialIcons name="chat" size={28} color={color} />,
         }}
       />
        <Tabs.Screen
@@ -43,13 +49,6 @@ export default function TabLayout() {
         options={{
           title: 'Tâches',
           tabBarIcon: ({ color }) => <MaterialIcons name="checklist" size={28} color={color} />,
-        }}
-      />
-      <Tabs.Screen
-        name="Yield"
-        options={{
-          title: 'Rendement',
-          tabBarIcon: ({ color }) => <MaterialIcons name="scale" size={28} color={color} />,
         }}
       />
     </Tabs>

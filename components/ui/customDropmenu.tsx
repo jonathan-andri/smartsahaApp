@@ -1,10 +1,12 @@
 import React from 'react'
 import { Text, View } from 'react-native'
 
-export default function dashboard() {
+const CustomDropmenu = () => {
   return (
     <View>
-      <Text>dashboard</Text>
+      <Text>customDropmenu</Text>
     </View>
   )
 }
+
+export default customDropmenu

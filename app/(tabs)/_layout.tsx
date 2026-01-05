@@ -3,7 +3,6 @@ import { Tabs } from 'expo-router';
 import React from 'react';
 
 import { HapticTab } from '@/components/haptic-tab';
-import { Colors } from '@/constants/theme';
 import { useColorScheme } from '@/hooks/use-color-scheme';
 
 export default function TabLayout() {
@@ -12,9 +11,13 @@ export default function TabLayout() {
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
+        tabBarActiveTintColor: "#3CBF96",
         headerShown: false,
         tabBarButton: HapticTab,
+        tabBarStyle: {
+          paddingBottom: 5,
+          paddingTop: 5
+        }
       }}>
       <Tabs.Screen
         name="index"
@@ -31,7 +34,7 @@ export default function TabLayout() {
         }}
       />
        <Tabs.Screen
-        name="chat"
+        name="chatList"
         options={{
           title: 'Discussion',
           tabBarIcon: ({ color }) => <MaterialIcons name="chat" size={28} color={color} />,

@@ -1,12 +1,21 @@
+import { colorSelect } from "@/components/colorSelector";
+import { Item } from "@/components/types/Item";
 import { Ionicons } from "@expo/vector-icons";
+import { router } from "expo-router";
 import React, { useEffect, useRef } from "react";
 import { Animated, FlatList, Image, Text, TouchableOpacity, View } from "react-native";
-
-
 /* =====================
    Reusable Components
 ===================== */
 
+const handleItemPress = (item: Item) => {
+  router.push({
+    pathname: "/makeOffer",
+    params: { item: JSON.stringify(item) },
+  });
+};
+
+// Update the AnimatedCard component to use handleItemPress
 const AnimatedCard = ({ item, index }) => {
   const scale = useRef(new Animated.Value(0.9)).current;
   const opacity = useRef(new Animated.Value(0)).current;
@@ -32,23 +41,36 @@ const AnimatedCard = ({ item, index }) => {
     <Animated.View
       style={{ transform: [{ scale }], opacity }}
       className={`flex-1 rounded-3xl p-4 m-2 ${colorSelect(item.title)}`}
-    >
-      <Text className="text-neutral-900 font-semibold text-base">{item.title}</Text>
-      <Text className="text-neutral-500 text-xs mb-2">{item.stock}</Text>
-
-      <Image source={item.image} className="w-full h-24" resizeMode="contain" />
-
-      <View className="flex-row items-center justify-between mt-3">
-        <Text className="text-sm font-semibold text-neutral-900">{item.price}</Text>
-        <TouchableOpacity className="bg-emerald-500 w-8 h-8 rounded-full items-center justify-center">
-          <Text className="text-white font-bold">+</Text>
-        </TouchableOpacity>
-      </View>
+    > 
+      <TouchableOpacity onPress={() => handleItemPress(item)}>
+        <Text className="text-neutral-900 font-semibold text-base">{item.title}</Text>
+        <Text className="text-neutral-500 text-xs mb-2">{item.stock} KG</Text>
+        <Image source={item.image} className="w-full h-24" resizeMode="contain" />
+        <View className="flex-row items-center justify-between mt-3">
+          <Text className="text-sm font-semibold text-neutral-900">Ar {item.price} K</Text>
+          <TouchableOpacity className="bg-emerald-500 w-8 h-8 rounded-full items-center justify-center">
+            <Text className="text-white font-bold">+</Text>
+          </TouchableOpacity>
+        </View>
+      </TouchableOpacity>
     </Animated.View>
   );
 };
 
-const SectionHeader = ({data, isVisible, setIsVisible}) => {
+interface SectionHeaderProps {
+  data: {
+    "id": string,
+    "title": string,
+    "stock": string,
+    "price": string,
+    "bg": string,
+    "image": any,
+  };
+  isVisible: boolean;
+  setIsVisible: (visible: boolean) => void;
+}
+
+const SectionHeader: React.FC<SectionHeaderProps> = ({data, isVisible, setIsVisible}) => {
   return (
   <View className="flex-row items-center justify-between mb-4">
     <View>
@@ -84,7 +106,7 @@ const CartBar = () => (
       <Text className="text-white/80 text-xs">3 Offres</Text>
     </View>
     <View className="flex-row items-center gap-2">
-      <View className="w-8 h-8 bg-white rounded-full" />
+      <View className="w-8 h-8 bg-white rounded-full" ><Image className="w-full h-24" resizeMode="contain" /></View>
       <View className="w-8 h-8 bg-white rounded-full" />
       <View className="w-8 h-8 bg-white rounded-full" />
     </View>
@@ -95,115 +117,102 @@ const CartBar = () => (
    Main Screen
 ===================== */
 
-//fonction de séléction de couleur
-const colorSelect = (ti: string) => {
-  switch(ti) {
-    case "Vanille":	return "bg-yellow-100";
-    case "Maïs":	return "bg-orange-100";
-    case "Blé":	return "bg-amber-100";
-    case "Noix de cacao":	return "bg-purple-100";
-    case "Fraise":	return "bg-red-100";
-    case "Raisin":	return "bg-indigo-100";
-    default: return "bg-gray-100"
-  }
-}
-
 export default function OffersScreen() {
   const [isDropMenuVisible, setIsDropMenuVisible] = React.useState(false);
   const data = [
     {
       id: "1",
       title: "Vanille",
-      stock: "120kg",
-      price: "Ar 45k",
+      stock: 120,
+      price: 45,
       bg: "bg-yellow-100",
       image: require("../../assets/images/vanille.png"),
     },
     {
       id: "2",
       title: "Maïs",
-      stock: "2 tonnes",
-      price: "Ar 30k",
+      stock: 2000,
+      price: 30,
       bg: "bg-orange-100",
       image: require("../../assets/images/mais.png"),
     },
     {
       id: "3",
       title: "Blé",
-      stock: "1 tonne",
-      price: "Ar 40k",
+      stock: 1000,
+      price: 40,
       bg: "bg-amber-100",
       image: require("../../assets/images/ble.png"),
     },
     {
       id: "4",
       title: "Noix de cacao",
-      stock: "500kg",
-      price: "Ar 35k",
+      stock: 500,
+      price: 35,
       bg: "bg-purple-100",
       image: require("../../assets/images/cacao.png"),
     },
     {
       id: "5",
       title: "Fraise",
-      stock: "200kg",
-      price: "Ar 50k",
+      stock: 200,
+      price: 50,
       bg: "bg-red-100",
       image: require("../../assets/images/fraise.png"),
     },
     {
       id: "6",
       title: "Raisin",
-      stock: "300kg",
-      price: "Ar 48k",
+      stock: 300,
+      price: 48,
       bg: "bg-indigo-100",
       image: require("../../assets/images/raisin.png"),
     },
     {
         id: "7",
         title: "Vanille",
-        stock: "120kg",
-        price: "Ar 45k",
+        stock: 120,
+        price: 45,
         bg: "bg-yellow-100",
         image: require("../../assets/images/vanille.png"),
       },
       {
         id: "8",
         title: "Maïs",
-        stock: "2 tonnes",
-        price: "Ar 30k",
+        stock: 2,
+        price: 30,
         bg: "bg-orange-100",
         image: require("../../assets/images/mais.png"),
       },
       {
         id: "9",
         title: "Blé",
-        stock: "1 tonne",
-        price: "Ar 40k",
+        stock: 1,
+        price: 40,
         bg: "bg-amber-100",
         image: require("../../assets/images/ble.png"),
       },
       {
         id: "10",
         title: "Noix de cacao",
-        stock: "500kg",
-        price: "Ar 35k",
+        stock: 500,
+        price: 35,
         bg: "bg-purple-100",
         image: require("../../assets/images/cacao.png"),
       },
       {
         id: "11",
         title: "Fraise",
-        stock: "200kg",
-        price: "Ar 50k",
+        stock: 200,
+        price: 50,
         bg: "bg-red-100",
         image: require("../../assets/images/fraise.png"),
       },
       {
         id: "12",
         title: "Raisin",
-        stock: "300kg",
-        price: "Ar 48k",
+        stock: 300,
+        price: 48,
         bg: "bg-indigo-100",
         image: require("../../assets/images/raisin.png"),
       },
@@ -212,18 +221,16 @@ export default function OffersScreen() {
   return (
     <View className="flex-1 bg-[#F6FBF8] px-4 pt-12">
       <SectionHeader data={data} isVisible={isDropMenuVisible} setIsVisible={setIsDropMenuVisible}/>
-
-      <FlatList
-        data={data}
-        keyExtractor={(item) => item.id}
-        numColumns={2}
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={{ paddingBottom: 120 }}
-        renderItem={({ item, index }) => (
-          <AnimatedCard item={item} index={index} />
-        )}
-      />
-
+        <FlatList
+          data={data}
+          keyExtractor={(item) => item.id}
+          numColumns={2}
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={{ paddingBottom: 120 }}
+          renderItem={({ item, index }) => (
+                <AnimatedCard item={item} index={index}/>
+          )}
+        />
       <CartBar />
     </View>
   );

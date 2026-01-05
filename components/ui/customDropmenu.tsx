@@ -9,4 +9,4 @@ const CustomDropmenu = () => {
   )
 }
 
-export default customDropmenu
+export default CustomDropmenu

@@ -1,13 +1,14 @@
 import { Ionicons } from "@expo/vector-icons";
+import { router } from "expo-router";
 import React, { useRef, useState } from "react";
 import {
-    FlatList,
-    KeyboardAvoidingView,
-    Platform,
-    Text,
-    TextInput,
-    TouchableOpacity,
-    View
+  FlatList,
+  KeyboardAvoidingView,
+  Platform,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
@@ -64,7 +65,11 @@ export default function ChatScreen() {
       {/* Header */}
       <View className="h-14 border-b border-gray-200 px-4 flex-row items-center justify-between">
         <View className="flex flex-row items-center">
-            <TouchableOpacity className="mr-3">
+            <TouchableOpacity className="mr-3"
+            onPress={() => {
+              router.back()
+            }}
+            >
                 <Ionicons name="chevron-back" size={25}/>
             </TouchableOpacity>
             <Text className="font-semibold text-lg ml-3">Razily Bekibo</Text>

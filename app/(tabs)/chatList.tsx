@@ -4,25 +4,25 @@ import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
 import React from "react";
 import {
-    FlatList,
-    Text,
-    TouchableOpacity,
-    View,
+  FlatList,
+  Text,
+  TouchableOpacity,
+  View,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 const conversations = [
   {
     id: "1",
-    name: "John Doe",
-    lastMessage: "See you tomorrow",
+    name: "Razily Bekibo",
+    lastMessage: "mba ataovy anízay namana ah",
     time: "10:24",
     unread: 2,
   },
   {
     id: "2",
-    name: "Alice",
-    lastMessage: "Thanks!",
+    name: "Rabenanahary Mirana",
+    lastMessage: "Salama, efa azonao ve ilay entana?",
     time: "09:10",
     unread: 0,
   },
@@ -36,7 +36,7 @@ export default function ConversationsScreen({ navigation }) {
         //   conversationId: item.id,
         //   name: item.name,
         // })
-        router.push("/(user)/chatList")
+        router.push("/chat")
       }
       className="flex-row items-center px-4 py-3 border-b border-gray-100"
     >

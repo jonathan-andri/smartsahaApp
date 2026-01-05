@@ -5,8 +5,14 @@ export default function UserLayout() {
   return (
     <Stack>
       <Stack.Screen
-        name="chatList"
-        options={{ title: "Chat" }}
+        name="chat"
+        options={{ title: "Chat" , headerShown: false}}
+        
+      />
+        <Stack.Screen
+        name="makeOffer"
+        options={{ title: "Chat" , headerShown: false}}
+        
       />
       <Stack.Screen
         name="chat/[id]"

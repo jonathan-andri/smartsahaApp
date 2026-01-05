@@ -1,18 +1,14 @@
 import { colorSelect } from "@/components/colorSelector";
+import { BottomBarProps, FadeSlideProps, PricePillProps, QuantitySelectorProps } from "@/components/type/types";
 import { Ionicons } from "@expo/vector-icons";
 import { router, useLocalSearchParams } from "expo-router";
 import React, { useEffect, useRef, useState } from "react";
 import { Animated, Image, Text, TouchableOpacity, View } from "react-native";
 import { formatNumberShort } from '../../components/formatNumberShort';
+
 /* =====================
   Reusable Components
 ===================== */
-
-interface FadeSlideProps {
-  children: React.ReactNode;
-  delay?: number;
-}
-
 const FadeSlide: React.FC<FadeSlideProps> = ({ children, delay = 0 }) => {
   const opacity = useRef(new Animated.Value(0)).current;
   const translateY = useRef(new Animated.Value(20)).current;
@@ -41,21 +37,11 @@ const FadeSlide: React.FC<FadeSlideProps> = ({ children, delay = 0 }) => {
   );
 };
 
-interface QuantitySelectorProps {
-  value: number;
-}
-
 const QuantitySelector: React.FC<QuantitySelectorProps> = ({ value }) => (
   <View className="flex-row items-center justify-center px-10 mt-6">
    <Text className="text-3xl font-semibold self-center">{value} KG</Text>
   </View>
 );
-
-interface PricePillProps {
-  price: number;
-  onIncrease: () => void;
-  onDecrease: () => void;
-}
 
 const PricePill: React.FC<PricePillProps> = ({ price , onIncrease, onDecrease }) => (
   <View className="w-[250px] bg-primary flex-row items-center justify-between self-center px-3 py-2 mt-6 rounded-full">
@@ -70,10 +56,6 @@ const PricePill: React.FC<PricePillProps> = ({ price , onIncrease, onDecrease })
    </TouchableOpacity>
   </View>
 );
-
-interface BottomBarProps {
-  onConfirm: () => void;
-}
 
 const BottomBar: React.FC<BottomBarProps> = ({ onConfirm }) => (
   <TouchableOpacity onPress={onConfirm} className="flex-row items-center justify-between bg-white rounded-full px-2 py-2 border border-neutral-200">

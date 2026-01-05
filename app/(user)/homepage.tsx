@@ -1,62 +1,12 @@
-import { colorSelect } from "@/components/colorSelector";
-import { Item } from "@/components/types/Item";
+import { CropCard } from "@/components/cards/cropCard";
 import { Ionicons } from "@expo/vector-icons";
-import { router } from "expo-router";
-import React, { useEffect, useRef } from "react";
+import React from "react";
 import { Animated, FlatList, Image, Text, TouchableOpacity, View } from "react-native";
-import { formatNumberShort } from '../../components/formatNumberShort';
 /* =====================
    Reusable Components
 ===================== */
+// Update the cropCard component to use handleItemPress
 
-const handleItemPress = (item: Item) => {
-  router.push({
-    pathname: "/makeOffer",
-    params: { item: JSON.stringify(item) },
-  });
-};
-
-// Update the AnimatedCard component to use handleItemPress
-const AnimatedCard = ({ item, index }) => {
-  const scale = useRef(new Animated.Value(0.9)).current;
-  const opacity = useRef(new Animated.Value(0)).current;
-
-  useEffect(() => {
-    Animated.parallel([
-      Animated.timing(scale, {
-        toValue: 1,
-        duration: 400,
-        delay: index * 80,
-        useNativeDriver: true,
-      }),
-      Animated.timing(opacity, {
-        toValue: 1,
-        duration: 400,
-        delay: index * 80,
-        useNativeDriver: true,
-      }),
-    ]).start();
-  }, []);
-
-  return (
-    <Animated.View
-      style={{ transform: [{ scale }], opacity }}
-      className={`flex-1 rounded-3xl p-4 m-2 ${colorSelect(item.title)}`}
-    > 
-      <TouchableOpacity onPress={() => handleItemPress(item)}>
-        <Text className="text-neutral-900 font-semibold text-base">{item.title}</Text>
-        <Text className="text-neutral-500 text-xs mb-2">{item.stock} KG</Text>
-        <Image source={item.image} className="w-full h-24" resizeMode="contain" />
-        <View className="flex-row items-center justify-between mt-3">
-          <Text className="text-sm font-semibold text-neutral-900">Ar {formatNumberShort(item.price)}</Text>
-          <TouchableOpacity className="bg-emerald-500 w-8 h-8 rounded-full items-center justify-center">
-            <Text className="text-white font-bold">+</Text>
-          </TouchableOpacity>
-        </View>
-      </TouchableOpacity>
-    </Animated.View>
-  );
-};
 
 interface SectionHeaderProps {
   data: {
@@ -69,9 +19,14 @@ interface SectionHeaderProps {
   };
   isVisible: boolean;
   setIsVisible: (visible: boolean) => void;
+  setFilter: (filter: string | null) => void;
 }
 
-const SectionHeader: React.FC<SectionHeaderProps> = ({data, isVisible, setIsVisible}) => {
+type cropType = "Vanille" | "Maïs" | "Blé" | "Noix de cacao" | "Fraise" | "Raisin";
+let filter : cropType;
+const filterOptions: cropType[] = ["Vanille", "Maïs", "Blé", "Noix de cacao", "Fraise", "Raisin"]; 
+
+const SectionHeader: React.FC<SectionHeaderProps> = ({data, isVisible, setIsVisible, setFilter}) => {
   return (
   <View className="flex-row items-center justify-between mb-4">
     <View>
@@ -87,11 +42,11 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({data, isVisible, setIsVisi
     className="absolute self-baseline top-14 left-[65%] bg-white shadow-slate-900 z-50 p-3 rounded-lg"
      >
         <FlatList
-          data={data}
-          keyExtractor={item => item.id}
+          data={filterOptions}
+          // keyExtractor={item => item.id}
           renderItem={({ item }) => (
             <View className="p-2 border-b-2 border-b-slate-100 ">
-              <Text className="text-lg">{item.title}</Text>
+              <Text className="text-lg">{item}</Text>
             </View>
           )}
         />
@@ -120,6 +75,8 @@ const CartBar = () => (
 
 export default function OffersScreen() {
   const [isDropMenuVisible, setIsDropMenuVisible] = React.useState(false);
+  const [filter , setFilter] = React.useState<string | null>(null);
+
   const data = [
     {
       id: "1",
@@ -221,7 +178,7 @@ export default function OffersScreen() {
 
   return (
     <View className="flex-1 bg-[#F6FBF8] px-4 pt-12">
-      <SectionHeader data={data} isVisible={isDropMenuVisible} setIsVisible={setIsDropMenuVisible}/>
+      <SectionHeader data={data} isVisible={isDropMenuVisible} setIsVisible={setIsDropMenuVisible} setFilter={setFilter}/>
         <FlatList
           data={data}
           keyExtractor={(item) => item.id}
@@ -229,7 +186,7 @@ export default function OffersScreen() {
           showsVerticalScrollIndicator={false}
           contentContainerStyle={{ paddingBottom: 120 }}
           renderItem={({ item, index }) => (
-                <AnimatedCard item={item} index={index}/>
+                <CropCard item={item} index={index}/>
           )}
         />
       <CartBar />

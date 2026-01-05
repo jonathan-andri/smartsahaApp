@@ -3,6 +3,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { router, useLocalSearchParams } from "expo-router";
 import React, { useEffect, useRef, useState } from "react";
 import { Animated, Image, Text, TouchableOpacity, View } from "react-native";
+import { formatNumberShort } from '../../components/formatNumberShort';
 /* =====================
   Reusable Components
 ===================== */
@@ -44,9 +45,9 @@ interface QuantitySelectorProps {
   value: number;
 }
 
-const QuantitySelector: React.FC<QuantitySelectorProps> = ({ value, placeholder }) => (
+const QuantitySelector: React.FC<QuantitySelectorProps> = ({ value }) => (
   <View className="flex-row items-center justify-center px-10 mt-6">
-   <Text className="text-3xl font-semibold self-center">{placeholder} KG</Text>
+   <Text className="text-3xl font-semibold self-center">{value} KG</Text>
   </View>
 );
 
@@ -62,7 +63,7 @@ const PricePill: React.FC<PricePillProps> = ({ price , onIncrease, onDecrease })
     <Text className="text-4xl text-neutral-900">−</Text>
    </TouchableOpacity>
 
-   <Text className="text-2xl font-semibold">Ar {price}</Text>
+   <Text className="text-2xl font-semibold">Ar {formatNumberShort(price)}</Text>
 
    <TouchableOpacity onPress={onIncrease} className="w-12 h-12 rounded-full bg-white items-center justify-center">
     <Text className="text-4xl text-neutral-900">+</Text>
@@ -91,10 +92,11 @@ const BottomBar: React.FC<BottomBarProps> = ({ onConfirm }) => (
 ===================== */
 
 const OfferDetailScreen: React.FC = () => {
-  const [quantity, setQuantity] = useState<number>(50);
-  const [price, setPrice] = useState<number>(0);
   const { item } = useLocalSearchParams<{ item?: string }>();
   const parsedItem = item ? JSON.parse(item) : null;
+  const [price, setPrice] = useState<number>(parsedItem.price);
+  const [quantity, setQuantity] = useState<number>(parsedItem.stock);
+
   return (
    <View className={`flex-1 ${colorSelect(parsedItem.title)} justify-between px-6 pt-12`}>
     {/* Header */}
@@ -130,13 +132,13 @@ const OfferDetailScreen: React.FC = () => {
 
     {/* Quantity */}
     <FadeSlide delay={400}>
-      <QuantitySelector value={parsedItem.stock}/>
+      <QuantitySelector value={quantity}/>
     </FadeSlide>
 
     {/* Price */}
     <FadeSlide delay={500}>
       <PricePill
-       price={parsedItem.price}
+       price={price}
        onIncrease={() => setPrice(price + 10000)}
        onDecrease={() => price > 10000 && setPrice(price - 10000)}
       />

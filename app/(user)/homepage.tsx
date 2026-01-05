@@ -4,6 +4,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
 import React, { useEffect, useRef } from "react";
 import { Animated, FlatList, Image, Text, TouchableOpacity, View } from "react-native";
+import { formatNumberShort } from '../../components/formatNumberShort';
 /* =====================
    Reusable Components
 ===================== */
@@ -47,7 +48,7 @@ const AnimatedCard = ({ item, index }) => {
         <Text className="text-neutral-500 text-xs mb-2">{item.stock} KG</Text>
         <Image source={item.image} className="w-full h-24" resizeMode="contain" />
         <View className="flex-row items-center justify-between mt-3">
-          <Text className="text-sm font-semibold text-neutral-900">Ar {item.price} K</Text>
+          <Text className="text-sm font-semibold text-neutral-900">Ar {formatNumberShort(item.price)}</Text>
           <TouchableOpacity className="bg-emerald-500 w-8 h-8 rounded-full items-center justify-center">
             <Text className="text-white font-bold">+</Text>
           </TouchableOpacity>
@@ -124,7 +125,7 @@ export default function OffersScreen() {
       id: "1",
       title: "Vanille",
       stock: 120,
-      price: 45,
+      price: 4500000,
       bg: "bg-yellow-100",
       image: require("../../assets/images/vanille.png"),
     },
@@ -132,7 +133,7 @@ export default function OffersScreen() {
       id: "2",
       title: "Maïs",
       stock: 2000,
-      price: 30,
+      price: 30000000,
       bg: "bg-orange-100",
       image: require("../../assets/images/mais.png"),
     },
@@ -140,7 +141,7 @@ export default function OffersScreen() {
       id: "3",
       title: "Blé",
       stock: 1000,
-      price: 40,
+      price: 40000000,
       bg: "bg-amber-100",
       image: require("../../assets/images/ble.png"),
     },
@@ -148,7 +149,7 @@ export default function OffersScreen() {
       id: "4",
       title: "Noix de cacao",
       stock: 500,
-      price: 35,
+      price: 350000,
       bg: "bg-purple-100",
       image: require("../../assets/images/cacao.png"),
     },
@@ -156,7 +157,7 @@ export default function OffersScreen() {
       id: "5",
       title: "Fraise",
       stock: 200,
-      price: 50,
+      price: 500000,
       bg: "bg-red-100",
       image: require("../../assets/images/fraise.png"),
     },
@@ -164,7 +165,7 @@ export default function OffersScreen() {
       id: "6",
       title: "Raisin",
       stock: 300,
-      price: 48,
+      price: 480000,
       bg: "bg-indigo-100",
       image: require("../../assets/images/raisin.png"),
     },
@@ -172,7 +173,7 @@ export default function OffersScreen() {
         id: "7",
         title: "Vanille",
         stock: 120,
-        price: 45,
+        price: 4500,
         bg: "bg-yellow-100",
         image: require("../../assets/images/vanille.png"),
       },
@@ -180,7 +181,7 @@ export default function OffersScreen() {
         id: "8",
         title: "Maïs",
         stock: 2,
-        price: 30,
+        price: 3000,
         bg: "bg-orange-100",
         image: require("../../assets/images/mais.png"),
       },
@@ -188,7 +189,7 @@ export default function OffersScreen() {
         id: "9",
         title: "Blé",
         stock: 1,
-        price: 40,
+        price: 40000,
         bg: "bg-amber-100",
         image: require("../../assets/images/ble.png"),
       },
@@ -196,7 +197,7 @@ export default function OffersScreen() {
         id: "10",
         title: "Noix de cacao",
         stock: 500,
-        price: 35,
+        price: 350000,
         bg: "bg-purple-100",
         image: require("../../assets/images/cacao.png"),
       },
@@ -204,7 +205,7 @@ export default function OffersScreen() {
         id: "11",
         title: "Fraise",
         stock: 200,
-        price: 50,
+        price: 500000000,
         bg: "bg-red-100",
         image: require("../../assets/images/fraise.png"),
       },
@@ -212,7 +213,7 @@ export default function OffersScreen() {
         id: "12",
         title: "Raisin",
         stock: 300,
-        price: 48,
+        price: 4800,
         bg: "bg-indigo-100",
         image: require("../../assets/images/raisin.png"),
       },

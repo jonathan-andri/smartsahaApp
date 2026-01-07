@@ -1,26 +1,9 @@
 import { CropCard } from "@/components/cards/cropCard";
+import type { SectionHeaderProps } from "@/components/type/types";
+import { CartBar } from "@/components/ui/cartBar";
 import { Ionicons } from "@expo/vector-icons";
 import React from "react";
-import { Animated, FlatList, Image, Text, TouchableOpacity, View } from "react-native";
-/* =====================
-   Reusable Components
-===================== */
-// Update the cropCard component to use handleItemPress
-
-
-interface SectionHeaderProps {
-  data: {
-    "id": string,
-    "title": string,
-    "stock": string,
-    "price": string,
-    "bg": string,
-    "image": any,
-  };
-  isVisible: boolean;
-  setIsVisible: (visible: boolean) => void;
-  setFilter: (filter: string | null) => void;
-}
+import { Animated, FlatList, Text, TouchableOpacity, View } from "react-native";
 
 type cropType = "Vanille" | "Maïs" | "Blé" | "Noix de cacao" | "Fraise" | "Raisin";
 let filter : cropType;
@@ -54,21 +37,6 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({data, isVisible, setIsVisi
   </View>
 );
 }
-
-const CartBar = () => (
-  <View className="absolute bottom-6 left-6 right-6 bg-emerald-500 rounded-full px-6 py-4 flex-row items-center justify-between shadow-xl">
-    <View>
-      <Text className="text-white font-semibold">Panier</Text>
-      <Text className="text-white/80 text-xs">3 Offres</Text>
-    </View>
-    <View className="flex-row items-center gap-2">
-      <View className="w-8 h-8 bg-white rounded-full" ><Image className="w-full h-24" resizeMode="contain" /></View>
-      <View className="w-8 h-8 bg-white rounded-full" />
-      <View className="w-8 h-8 bg-white rounded-full" />
-    </View>
-  </View>
-);
-
 /* =====================
    Main Screen
 ===================== */

@@ -1,133 +1,16 @@
+import { ProductPreviewCard } from "@/components/cards/productView";
+import { PaperSelectItem } from "@/components/type/types";
+import { BottomBar } from "@/components/ui/buttonBar";
 import SelectField from "@/components/ui/dropdown";
-import { Ionicons } from "@expo/vector-icons";
-import React, { useEffect, useRef, useState } from "react";
+import { FadeUp } from "@/components/ui/fadeUp";
+import { InputField } from "@/components/ui/inputField";
+import React, { useState } from "react";
+
 import {
-    Animated,
-    Image,
-    ImageSourcePropType,
-    Text,
-    TextInput,
-    TouchableOpacity,
-    View
+  Text,
+  TouchableOpacity,
+  View
 } from "react-native";
-
-/* ===================== Interfaces ===================== */
-interface FadeUpProps {
-  children: React.ReactNode;
-  delay?: number;
-}
-
-interface ProductPreviewCardProps {
-  title: string;
-  weight: number;
-  price: number;
-  image: ImageSourcePropType;
-}
-
-interface InputFieldProps {
-  value: string;
-  placeholder?: string;
-  suffix?: string;
-  icon?: string;
-  onChangeText: (text: string) => void;
-}
-
-interface BottomBarProps {
-  onConfirm: () => void;
-}
-
-interface PaperSelectItem {
-  _id: string;
-  value: string;
-}
-
-/* ===================== Reusable Animated Wrapper ===================== */
-const FadeUp: React.FC<FadeUpProps> = ({ children, delay = 0 }) => {
-  const opacity = useRef(new Animated.Value(0)).current;
-  const translateY = useRef(new Animated.Value(24)).current;
-
-  useEffect(() => {
-    Animated.parallel([
-      Animated.timing(opacity, {
-        toValue: 1,
-        duration: 450,
-        delay,
-        useNativeDriver: true,
-      }),
-      Animated.timing(translateY, {
-        toValue: 0,
-        duration: 450,
-        delay,
-        useNativeDriver: true,
-      }),
-    ]).start();
-  }, []);
-
-  return (
-    <Animated.View style={{ opacity, transform: [{ translateY }] }}>
-      {children}
-    </Animated.View>
-  );
-};
-
-/* ===================== Reusable Components ===================== */
-const ProductPreviewCard: React.FC<ProductPreviewCardProps> = ({ 
-  title, 
-  weight, 
-  price, 
-  image 
-}) => (
-  <View className="bg-[#F3E3D6] rounded-3xl p-4 flex-row items-center justify-between">
-    <View className="flex">
-      <Text className="font-semibold text-5xl text-neutral-600">{title}</Text>
-      <View className="flex-column items-start gap-2 mt-2">
-        <View className="bg-white px-3 py-1 rounded-full">
-          <Text className="text-lg">{weight} KG</Text>
-        </View>
-        <View className="bg-white pl-3 pr-1 py-1 rounded-full flex-row items-center justify-between w-[100px]">
-          <Text className="text-lg">Ar {price}M</Text>
-          <View className="bg-emerald-500 w-10 h-10 rounded-full items-center justify-center">
-            <Ionicons name='pricetag' size={20} color={"white"} />
-          </View>
-        </View>
-      </View>
-    </View>
-    <Image source={image} className="w-48 h-48 -rotate-90" resizeMode="contain" />
-  </View>
-);
-
-const InputField: React.FC<InputFieldProps> = ({ 
-  value, 
-  placeholder, 
-  suffix, 
-  icon, 
-  onChangeText 
-}) => (
-  <View className="flex-row items-center border border-neutral-200 rounded-full px-5 py-4">
-    <TextInput 
-      value={value} 
-      onChangeText={onChangeText} 
-      placeholder={placeholder} 
-      className="flex-1" 
-    />
-    {suffix && <Text className="text-neutral-500">{suffix}</Text>}
-    {icon && <Ionicons name="location" size={20} color="black" />}
-  </View>
-);
-
-const BottomBar: React.FC<BottomBarProps> = ({ onConfirm }) => (
-  <TouchableOpacity 
-    onPress={onConfirm} 
-    className="flex-row items-center justify-between bg-white rounded-full px-2 py-2 border border-neutral-200"
-  >
-    <TouchableOpacity className="px-8 py-3 rounded-full">
-      <Text className="font-semibold text-3xl">Confirmer</Text>
-    </TouchableOpacity>
-    <TouchableOpacity className="bg-primary w-28 h-16 rounded-full items-center justify-center">
-      <Ionicons name="pricetag" size={20} color={"white"}/>
-    </TouchableOpacity>
-  </TouchableOpacity>
-);
 
 /* ===================== Main Screen ===================== */
 export default function CreateOfferScreen() {
@@ -136,19 +19,15 @@ export default function CreateOfferScreen() {
   const [price, setPrice] = useState<number>(10000);
   const [selectedValue, setSelectedValue] = useState<string>("");
   const [currentValue, setCurrentValue] = useState<string>("");
-  const [myItem, setMyItem] = useState<PaperSelectItem>({ _id: '', value: '' });
+  const [myItem, setMyItem] = useState<PaperSelectItem>({ _id: '', value: '', img:'' });
 
   const myItems: PaperSelectItem[] = [
-    { _id: '1', value: 'Blé' },
-    { _id: '2', value: 'Maïs' },
-    { _id: '3', value: 'Riz' },
-    { _id: '4', value: 'Soja' },
-    { _id: '5', value: 'Orge' },
-    { _id: '6', value: 'Avoine' },
-    { _id: '7', value: 'Sorgho' },
-    { _id: '8', value: 'Millet' },
-    { _id: '9', value: 'Seigle' },
-    { _id: '10', value: 'Quinoa' },
+    { _id: '1', value: 'Blé', img:'ble' },
+    { _id: '2', value: 'Maïs', img:'mais'},
+    { _id: '3', value: 'Raisin', img:'raisin'},
+    { _id: '4', value: 'Fraise', img:'fraise'},
+    { _id: '5', value: 'Vanille', img:'vanille' },
+    { _id: '6', value: 'Cacao', img:'cacao' },
   ];
 
   const handleSelection = (value: { text: string }) => {
@@ -174,7 +53,7 @@ export default function CreateOfferScreen() {
           title={myItem.value} 
           weight={weight} 
           price={price} 
-          image={require("../../assets/images/ble.png")} 
+          image={myItem.img as any} 
         />
       </FadeUp>
 
@@ -187,7 +66,7 @@ export default function CreateOfferScreen() {
             valueField="_id"
             placeholder="Choisir un produit" 
             value={myItem}
-            onChangeSelect={(item) =>{
+            onChangeSelect={(item: PaperSelectItem) =>{
               setMyItem(item);
             }}
           />

@@ -39,10 +39,12 @@ export const CropCard = ({ item, index }) => {
         style={{ transform: [{ scale }], opacity }}
         className={`flex-1 rounded-3xl p-4 m-2 ${colorSelect(item.title)}`}
       > 
-        <TouchableOpacity onPress={() => handleItemPress(item)}>
-          <Text className="text-neutral-900 font-semibold text-base">{item.title}</Text>
-          <Text className="text-neutral-500 text-xs mb-2">{item.stock} KG</Text>
-          <Image source={item.image} className="w-full h-24" resizeMode="contain" />
+        <TouchableOpacity onPress={() => handleItemPress(item)} className=" flex-1 h-48 justify-between overflow-hidden">
+          <View>
+            <Text className="text-neutral-900 font-semibold text-base">{item.title}</Text>
+            <Text className="text-neutral-500 text-xs mb-2">{item.stock} KG</Text>
+          </View>
+          <Image source={item.image} className="w-full h-32 top-7 absolute" resizeMode="contain" />
           <View className="flex-row items-center justify-between mt-3">
             <Text className="text-sm font-semibold text-neutral-900">Ar {formatNumberShort(item.price)}</Text>
             <TouchableOpacity className="bg-emerald-500 w-8 h-8 rounded-full items-center justify-center">

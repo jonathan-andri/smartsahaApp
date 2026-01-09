@@ -1,6 +1,27 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Animated, Text, TextInput, TouchableOpacity, View } from "react-native";
 
+// import { GoogleSignin } from '@react-native-google-signin/google-signin';
+
+// GoogleSignin.configure({
+//   webClientId: 'YOUR_WEB_CLIENT_ID', // Replace with your web client ID
+// });
+
+// const handleGoogleSignIn = async () => {
+//   try {
+//     await GoogleSignin.hasPlayServices();
+//     const userInfo = await GoogleSignin.signIn();
+//     console.log(userInfo);
+//     // Handle successful login here (e.g., navigate to another screen or store user info)
+//   } catch (error) {
+//     console.error(error);
+//   }
+// };
+
+// // Add a button for Google Sign-In
+// <TouchableOpacity onPress={handleGoogleSignIn} className="bg-red-500 rounded-2xl py-4 items-center">
+//   <Text className="text-white font-semibold text-base">Se connecter avec Google</Text>
+// </TouchableOpacity>
 
 export default function LoginScreen() {
   const fadeAnim = useRef(new Animated.Value(0)).current;

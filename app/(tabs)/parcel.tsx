@@ -74,7 +74,7 @@ export default function ParcelScreen() {
         <View className="mt-6">
           <View className='flex flex-row justify-between items-center'>
             <Text className="text-lg font-semibold mb-4">Toutes les parcelles</Text>
-            <TouchableOpacity className='p-2 bg-green-400 rounded-md'>
+            <TouchableOpacity className='p-2 bg-primary rounded-md'>
               <Text className= "color-white">+ Ajouter</Text>
             </TouchableOpacity>
           </View>
@@ -99,65 +99,65 @@ export default function ParcelScreen() {
 }
 
   {/* Avec FlatList pour performance */}
-        {/* <View className="mt-8">
-          <Text className="text-lg font-semibold mb-4">Parcelles à irriguer</Text>
-          <FlatList
-            data={parcels}
-            scrollEnabled={false}
-            keyExtractor={(item) => item.id}
-            renderItem={({ item }) => (
-              <ParcelListCard
-                id={item.id}
-                name={item.parcelName}
-                cropType={item.cropType}
-                area={item.area}
-                status="active"
-                nextAction="Irrigation nécessaire"
-                nextActionDate={item.taskDue}
-                onPress={(id) => console.log('Press', id)}
-              />
-            )}
-          />
-        </View> */}
+      //   {/* <View className="mt-8">
+      //     <Text className="text-lg font-semibold mb-4">Parcelles à irriguer</Text>
+      //     <FlatList
+      //       data={parcels}
+      //       scrollEnabled={false}
+      //       keyExtractor={(item) => item.id}
+      //       renderItem={({ item }) => (
+      //         <ParcelListCard
+      //           id={item.id}
+      //           name={item.parcelName}
+      //           cropType={item.cropType}
+      //           area={item.area}
+      //           status="active"
+      //           nextAction="Irrigation nécessaire"
+      //           nextActionDate={item.taskDue}
+      //           onPress={(id) => console.log('Press', id)}
+      //         />
+      //       )}
+      //     />
+      //   </View> */}
 
-        {/* Grille de parcelles */}
-       {/* <View className="mt-8">
-          <Text className="text-lg font-semibold mb-4">Vue grille</Text>
-          <View className="flex-row flex-wrap -mx-2">
-            {parcels.map((parcel) => (
-              <View key={parcel.id} className="w-1/2 px-2 mb-4">
-                <View className="bg-white p-3 rounded-lg border border-gray-200">
-                  <View className="w-12 h-12 rounded-full bg-green-100 items-center justify-center mb-2">
-                    <Ionicons 
-                      name={parcel.cropType === 'Riz' ? 'leaf' : 'ear'} 
-                      size={24} 
-                      color="#4CAF50" 
-                    />
-                  </View>
-                  <Text className="font-bold text-gray-900" numberOfLines={1}>
-                    {parcel.parcelName}
-                  </Text>
-                  <Text className="text-gray-600 text-sm mt-1">
-                    {parcel.area} ha • {parcel.cropType}
-                  </Text>
-                </View>
-              </View>
-            ))}
-          </View>
-        </View> */}
+      //   {/* Grille de parcelles */}
+      //  {/* <View className="mt-8">
+      //     <Text className="text-lg font-semibold mb-4">Vue grille</Text>
+      //     <View className="flex-row flex-wrap -mx-2">
+      //       {parcels.map((parcel) => (
+      //         <View key={parcel.id} className="w-1/2 px-2 mb-4">
+      //           <View className="bg-white p-3 rounded-lg border border-gray-200">
+      //             <View className="w-12 h-12 rounded-full bg-green-100 items-center justify-center mb-2">
+      //               <Ionicons 
+      //                 name={parcel.cropType === 'Riz' ? 'leaf' : 'ear'} 
+      //                 size={24} 
+      //                 color="#4CAF50" 
+      //               />
+      //             </View>
+      //             <Text className="font-bold text-gray-900" numberOfLines={1}>
+      //               {parcel.parcelName}
+      //             </Text>
+      //             <Text className="text-gray-600 text-sm mt-1">
+      //               {parcel.area} ha • {parcel.cropType}
+      //             </Text>
+      //           </View>
+      //         </View>
+      //       ))}
+      //     </View>
+      //   </View> */}
 
-                {/* Carte détaillée (pour la vue principale) */}
-        {/* <ParcelCard
-          parcelName="Parcelle d'Ambodinonoka"
-          coordinates="-21.2234, 48.0156"
-          farmerName="Mavirika"
-          cropType="Riz"
-          area={2.5}
-          yield={3.8}
-          taskDue="Hjery"
-          irrigationStatus="good"
-          lastIrrigation="Hier"
-          soilType="Argileux"
-          onPress={() => console.log('Parcel pressed')}
-          imageUrl="https://images.unsplash.com/photo-1505253668822-42074d58a7c6"
-        /> */}
+      //           {/* Carte détaillée (pour la vue principale) */}
+      //   {/* <ParcelCard
+      //     parcelName="Parcelle d'Ambodinonoka"
+      //     coordinates="-21.2234, 48.0156"
+      //     farmerName="Mavirika"
+      //     cropType="Riz"
+      //     area={2.5}
+      //     yield={3.8}
+      //     taskDue="Hjery"
+      //     irrigationStatus="good"
+      //     lastIrrigation="Hier"
+      //     soilType="Argileux"
+      //     onPress={() => console.log('Parcel pressed')}
+      //     imageUrl="https://images.unsplash.com/photo-1505253668822-42074d58a7c6"
+      //   /> */}

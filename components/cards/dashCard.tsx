@@ -29,6 +29,7 @@ export const StatsCard = ({
   iconPosition = 'right',
   variant = 'default',
 }: StatsCardProps) => {
+  
   // Tailles prédéfinies
   const sizeClasses = {
     small: 'p-3 rounded-lg',

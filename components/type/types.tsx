@@ -70,7 +70,13 @@ interface FadeUpProps {
     setFilter: (filter: string | null) => void;
   }
 
-export {
-  BottomBarProps, FadeSlideProps, FadeUpProps, InputFieldProps, Item, PaperSelectItem, PricePillProps, ProductPreviewCardProps, QuantitySelectorProps, SectionHeaderProps
-};
+  interface StatsCardProps {
+    title: string;
+    value: string;
+    icon: React.ReactNode;
+    backgroundColor: string;
+    textColor?: string;
+  }
+
+export { BottomBarProps, FadeSlideProps, FadeUpProps, InputFieldProps, Item, PaperSelectItem, PricePillProps, ProductPreviewCardProps, QuantitySelectorProps, SectionHeaderProps, StatsCardProps };
 

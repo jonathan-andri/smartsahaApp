@@ -1,11 +1,10 @@
 export type UserType = "farmer" | "buyer";
 
 export interface User {
-    id: string;
+    uuid: string;
     email: string;
-    displayName: string;
-    photoURL?: string;
-    phoneNumber?: string;
+    username: string;
+    password: string;
     userType?: UserType;
     createdAt: Date;
     updatedAt: Date;

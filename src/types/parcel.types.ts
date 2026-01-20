@@ -6,9 +6,8 @@ export interface Coordinate {
 }
 
 export interface Parcel {
-  id: string;
-  userId: string;
-  name: string;
+  uuid: string;
+  owner_uuid: string;
   
   // Coordonnées géographiques (polygone)
   coordinates: Coordinate[];

@@ -1,4 +1,4 @@
-import { Conversation } from "@/types/chat.types";
+import { Conversation } from "@/src/types/chat.types";
 import { RealtimeChannel } from "@supabase/supabase-js";
 import { api, handleApiError } from "./api";
 import { supabase } from "./supabase";

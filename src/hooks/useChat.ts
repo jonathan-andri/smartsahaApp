@@ -1,5 +1,5 @@
-import { useAuth } from "@/contexts/AuthContext";
-import chatService from "@/services/chat.service";
+import { useAuth } from "@/src/contexts/AuthContext";
+import chatService from "@/src/services/chat.service";
 import { useCallback, useEffect, useState } from "react";
 import { Message } from "../types/chat.types";
 
@@ -19,19 +19,19 @@ export const useChat = (conversationId: string) => {
             setMessages((prev) => [...prev, newMessage]);
 
             //marquer comme lu si le message n'est pas notre messasge
-            if ( newMessage.senderId !== user?.id) {
+            if ( newMessage.senderId !== user?.uuid) {
                 chatService.markAsRead(conversationId);
             }
         });
         return unsubscribe;
-    },  [conversationId, user?.id]);
+    },  [conversationId, user?.uuid]);
 
     //s'abonner aux indicateurs de frappe
     useEffect(() => {
         const unsbscribe = chatService.subscribeToTyping(
             conversationId,
             (userId, isTyping) => {
-                if (userId !== user?.id) {
+                if (userId !== user?.uuid) {
                     setTypingUsers((prev) => {
                         const updated = new Set(prev);
                         if (isTyping) {
@@ -45,7 +45,7 @@ export const useChat = (conversationId: string) => {
             }
         );
         return unsbscribe;
-    }, [conversationId, user?.id]);
+    }, [conversationId, user?.uuid]);
 
     const loadMessage = async () => {
         try {
@@ -70,11 +70,11 @@ export const useChat = (conversationId: string) => {
 
     const sendTypingIndicator = useCallback(
         async (isTyping: boolean) => {
-            if(user?.id) {
-                await chatService.sendTypingIndicator(conversationId, user.id, isTyping);
+            if(user?.uuid) {
+                await chatService.sendTypingIndicator(conversationId, user.uuid, isTyping);
             }
         },
-        [conversationId, user?.id]
+        [conversationId, user?.uuid]
     );
 
     return {

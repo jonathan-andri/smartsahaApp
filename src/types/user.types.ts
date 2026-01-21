@@ -33,3 +33,4 @@ export interface User {
     bio?: string;
 }
 
+export type UserRole = 'agriculteur' | 'ong' | null;

@@ -1,16 +1,18 @@
 import axios from 'axios';
-import { store } from '../store';
+import { getAccessToken } from '../../src/storage/token.storage';
 
-export const api = axios.create({
-  baseURL: 'https://api.myapp.com/api',
+export const httpClient = axios.create({
+  baseURL: process.env.EXPO_PUBLIC_API_URL,
+  timeout: 10000,
+  headers: {
+    'Content-Type': 'application/json',
+  },
 });
 
-api.interceptors.request.use((config) => {
-  const token = store.getState().auth.token;
-
+httpClient.interceptors.request.use(async (config) => {
+  const token = await getAccessToken();
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
   }
-
   return config;
 });

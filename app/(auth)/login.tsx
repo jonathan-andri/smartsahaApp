@@ -1,3 +1,4 @@
+import { useAuth } from "@/src/hooks/useAuth";
 import React, { useEffect, useRef, useState } from "react";
 import { Animated, Text, TextInput, TouchableOpacity, View } from "react-native";
 
@@ -27,6 +28,7 @@ export default function LoginScreen() {
   const fadeAnim = useRef(new Animated.Value(0)).current;
   const slideAnim = useRef(new Animated.Value(30)).current;
 
+  const { login } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -82,7 +84,9 @@ export default function LoginScreen() {
         </View>
 
         {/* Login Button */}
-        <TouchableOpacity className="bg-primary rounded-2xl py-4 items-center">
+        <TouchableOpacity className="bg-primary rounded-2xl py-4 items-center" 
+          onPress={() => login(email, password)}
+        >
           <Text className="text-white font-semibold text-base">Se connecter</Text>
         </TouchableOpacity>
 
